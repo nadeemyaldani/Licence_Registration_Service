@@ -1,0 +1,21 @@
+﻿@*@page "/addsubscription"
+@inherits AddSubscriptionBase
+
+<Form Model="@Subscription">
+    <h3> Add New Subscription</h3>
+    <div class="form-group row">
+        <label for="AccountNo" class="col-sm-2 col-form-label">
+            Account No.
+        </label>
+        <br>
+        <div>
+            <InputText id="AccountNo" class="form-control" placeholder="Account No." @bind-Value="" disabled>
+                Account No.
+            </InputText>
+        </div>
+    </div>
+</Form>
+@code{
+  
+
+}*@
