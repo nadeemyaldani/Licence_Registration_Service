@@ -18,6 +18,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddEntityFrameworkStores<EntityDBContext>();
 
 builder.Services.AddTransient<SubscriptionBLL>();
+builder.Services.AddTransient<UserBLL>();
+builder.Services.AddTransient<PlanBLL>();
 
 builder.Services
     .AddBlazorise(options =>
@@ -25,7 +27,6 @@ builder.Services
         options.Immediate = true;
     })
     .AddBootstrapProviders();
-
 
 builder.Services.AddAuthentication("Identity.Application").AddCookie();
 

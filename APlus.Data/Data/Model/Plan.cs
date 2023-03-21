@@ -17,7 +17,5 @@ namespace APlus.Data.Model
         public decimal Cost { get; set; }
         [Required]
         public string Currency { get; set; }
-        public ICollection<PlanService> PlanServices { get; set; }
-
     }
 }

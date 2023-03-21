@@ -1,68 +1,66 @@
 ﻿using APlus.Data.Entity;
 using APlus.Data.Model;
-using Microsoft.EntityFrameworkCore;
 
 namespace APlus.Data.BLL
 {
-    public class PlanBLL
+    public class PaymentBLL
     {
-
         #region Create
-        public Task<Plan> Create(Plan plan)
+        public Task<Payment> Create(Payment payment)
         {
             using (EntityDBContext _dbContext = new())
             {
-                _dbContext.Add(plan);
+
+                _dbContext.Add(payment);
                 _dbContext.SaveChanges();
             }
-            return Task.FromResult(plan);
+            return Task.FromResult(payment);
         }
         #endregion
 
         #region Read
-        public Task<List<Plan>> GetAll()
+        public Task<List<Payment>> GetAll()
         {
-            List<Plan> plans;
+            List<Payment> payments;
             using (EntityDBContext _dbContext = new())
             {
-                plans = _dbContext.Set<Plan>().Include(a => a.PlanServices).ToList();
+                payments = _dbContext.Set<Payment>().ToList();
             }
-            return Task.FromResult(plans);
+            return Task.FromResult(payments);
         }
-        public Task<Plan> Get(int id)
+        public Task<Payment> Get(int id)
         {
-            Plan plan;
+            Payment payment;
             using (EntityDBContext _dbContext = new())
             {
-                plan = _dbContext.Set<Plan>().Where(w => w.Id == id).FirstOrDefault();
+                payment = _dbContext.Set<Payment>().Where(w => w.Id == id).FirstOrDefault();
             }
-            return Task.FromResult(plan);
+            return Task.FromResult(payment);
         }
         #endregion
 
         #region Update
-        public Task<Plan> Update(Plan plan)
+        public Task<Payment> Update(Payment payment)
         {
             using (EntityDBContext _dbContext = new())
             {
-                _dbContext.Update(plan);
+                _dbContext.Update(payment);
                 _dbContext.SaveChanges();
             }
-            return Task.FromResult(plan);
+            return Task.FromResult(payment);
         }
         #endregion
 
         #region Delete
-        public Task<Plan> Delete(Plan plan)
+        public Task<Payment> Delete(Payment payment)
         {
             using (EntityDBContext _dbContext = new())
             {
-                _dbContext.Remove(plan);
+                _dbContext.Remove(payment);
                 _dbContext.SaveChanges();
             }
-            return Task.FromResult(plan);
+            return Task.FromResult(payment);
         }
         #endregion
-
     }
 }

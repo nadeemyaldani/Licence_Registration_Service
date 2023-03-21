@@ -47,15 +47,7 @@ namespace APlus.Data.BLL
             }
             return Task.FromResult(country);
         }
-        public Task<List<Country>> GetCountries()
-        {
-            List<Country> countries;
-            using (EntityDBContext _dbContext = new())
-            {
-                countries = _dbContext.Set<Country>().ToList();
-            }
-            return Task.FromResult(countries);
-        }
+
         #endregion
 
         #region Update

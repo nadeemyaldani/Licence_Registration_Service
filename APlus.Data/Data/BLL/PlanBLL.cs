@@ -1,6 +1,5 @@
 ﻿using APlus.Data.Entity;
 using APlus.Data.Model;
-using Microsoft.EntityFrameworkCore;
 
 namespace APlus.Data.BLL
 {
@@ -25,7 +24,7 @@ namespace APlus.Data.BLL
             List<Plan> plans;
             using (EntityDBContext _dbContext = new())
             {
-                plans = _dbContext.Set<Plan>().Include(a => a.PlanServices).ToList();
+                plans = _dbContext.Set<Plan>().ToList();
             }
             return Task.FromResult(plans);
         }

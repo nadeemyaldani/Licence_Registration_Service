@@ -1,21 +1,161 @@
-﻿@*@page "/addsubscription"
+﻿@page "/addsubscription"
+
+
 @inherits AddSubscriptionBase
+@inject IJSRuntime JsRuntime
 
-<Form Model="@Subscription">
+@if(Subscription is null)
+{
+    Subscription = new();
+    Subscription.SubscriptionUser = new();
+}
+
+
+<EditForm Model="@Subscription">
     <h3> Add New Subscription</h3>
-    <div class="form-group row">
-        <label for="AccountNo" class="col-sm-2 col-form-label">
-            Account No.
-        </label>
-        <br>
-        <div>
-            <InputText id="AccountNo" class="form-control" placeholder="Account No." @bind-Value="" disabled>
-                Account No.
-            </InputText>
-        </div>
-    </div>
-</Form>
-@code{
-  
 
-}*@
+    <Tabs SelectedTab="@selectedTab" SelectedTabChanged="@OnSelectedTabChanged">
+        <Items>
+            <Tab Name="accountdetails">Account Details</Tab>
+            <Tab Name="plandetails">Plan Details</Tab>
+        </Items>
+        <Content>
+            @{
+                #region  Account Details
+                <TabPanel Name="accountdetails">
+                    <div class="accountdetail">
+                        <div class="form-group row">
+                            <div>
+                                <Label for="AccountNo" class="col-sm-2 col-form-label">
+                                    Account No.
+                                </Label>
+                            </div>
+                            <br>
+                            <div>
+                                <InputText type="text" id="AccountNo" class="form-control" placeholder="" disabled @bind-Value="Subscription.SubscriptionUser.AccountNo" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div>
+                                <Label for="AccountName" class="col-sm-2 col-form-label">
+                                    Account Name
+                                </Label>
+                            </div>
+                            <br>
+                            <div>
+                                <InputText type="text" id="UserName" class="form-control" placeholder="Account Name" @bind-Value="Subscription.SubscriptionUser.UserName" />
+                            </div>
+                            <div>
+                                <Label for="UserProfilePicture" class="col-sm-2 col-form-label">
+                                    Upload
+                                </Label>
+                            </div>
+                            <div>
+                                <InputFile type="file" id="UserProfilePicture" class="form-control" placeholder="Photo" @bind-Value="Subscription.SubscriptionUser.UserProfilePicture" />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <div>
+                                <Label for="Organization" class="col-sm-2 col-form-label">
+                                    Organization
+                                </Label>
+                            </div>
+                            <div>
+                                <InputText type="text" id="Organization" class="form-control" placeholder="Organization" @bind-Value="Subscription.SubscriptionUser.Organization" />
+                            </div>
+                            <div>
+                                <Label for="Country" class="col-sm-2 col-form-label">
+                                    Country
+                                </Label>
+                            </div>
+                            <br>
+                            <div>
+                                <InputSelect type="text" id="Country" class="form-control" placeholder="Country" @bind-Value="Subscription.SubscriptionUser.CountryId">
+                                    @foreach (var country in Countries)
+                                    {
+                                        <option value="@country.Id">@country.Name</option>
+                                    }
+
+                                </InputSelect>
+                            </div>
+                            <br>
+                            <div class="form-group row">
+                                <div>
+                                    <Label for="Email" class="col-sm-2 col-form-label">
+                                        Email
+                                    </Label>
+                                </div>
+                                <br>
+                                <div>
+                                    <InputText type="text" id="Email" class="form-control" placeholder="Email" @bind-Value="Subscription.SubscriptionUser.Email" />
+                                </div>
+                                <div>
+                                    <Label for="PhoneNumber" class="col-sm-2 col-form-label">
+                                        Mobile
+                                    </Label>
+                                </div>
+                                <div>
+                                    <InputText type="text" id="PhoneNumber" class="form-control" placeholder="+966" @bind-Value="Subscription.SubscriptionUser.PhoneNumber" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div>
+                                    <Label for="Address" class="col-sm-2 col-form-label">
+                                        Address
+                                    </Label>
+                                </div>
+                                <br>
+                                <div>
+                                    <InputText type="text" id="Email" class="form-control" placeholder="Email" @bind-Value="Subscription.SubscriptionUser.Address" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </TabPanel>
+                #endregion
+            }
+            @{
+                # region Plan Details
+                <TabPanel Name="plandetails">
+                    <div class="plandetails">
+                        <div class="form-group row">
+                            <div>
+                                <Label for="Plan" class="col-sm-2 col-form-label">
+                                    Plan
+                                </Label>
+                            </div>
+                            <br>
+                            <div>
+                                <InputSelect type="text" id="Plan" class="form-control" placeholder="Country" @bind-Value="Subscription.SubscriptionUser.CountryId">
+                                    @foreach (var plan in Plans)
+                                    {
+                                        <option value="@plan.Id">@plan.Name</option>
+                                    }
+
+                                </InputSelect>
+                            </div>
+                        </div>
+                    </div>
+                </TabPanel>
+                #endregion
+            }
+            
+        </Content>
+    </Tabs>
+
+</EditForm>
+
+
+@code{
+
+    string selectedTab = "accountdetails";
+
+    private Task OnSelectedTabChanged(string name)
+    {
+        selectedTab = name;
+
+        return Task.CompletedTask;
+    }
+
+}

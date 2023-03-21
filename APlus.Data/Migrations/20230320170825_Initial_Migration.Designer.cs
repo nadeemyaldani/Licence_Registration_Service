@@ -4,6 +4,7 @@ using APlus.Data.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APlus.Migrations
 {
     [DbContext(typeof(EntityDBContext))]
-    partial class EntityDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230320170825_Initial_Migration")]
+    partial class Initial_Migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,7 +112,7 @@ namespace APlus.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("APlus.Data.Model.Payment", b =>
@@ -145,7 +148,7 @@ namespace APlus.Migrations
 
                     b.HasIndex("PlanId");
 
-                    b.ToTable("Payments", (string)null);
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("APlus.Data.Model.Plan", b =>
@@ -173,7 +176,7 @@ namespace APlus.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Plans", (string)null);
+                    b.ToTable("Plans");
                 });
 
             modelBuilder.Entity("APlus.Data.Model.PlanService", b =>
@@ -200,7 +203,7 @@ namespace APlus.Migrations
 
                     b.HasIndex("SubscriptionId");
 
-                    b.ToTable("PlanServices", (string)null);
+                    b.ToTable("PlanServices");
                 });
 
             modelBuilder.Entity("APlus.Data.Model.Subscription", b =>
@@ -238,7 +241,7 @@ namespace APlus.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Subscriptions", (string)null);
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("APlus.Data.Model.SubscriptionUser", b =>
@@ -295,7 +298,7 @@ namespace APlus.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("SubscriptionUsers", (string)null);
+                    b.ToTable("SubscriptionUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

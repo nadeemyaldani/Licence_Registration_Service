@@ -27,6 +27,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.5" />
+    <PackageReference Include="PSC.Blazor.Components.Tabs" Version="1.0.6" />
   </ItemGroup>
 
   <ItemGroup>

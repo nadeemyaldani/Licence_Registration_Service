@@ -109,7 +109,7 @@ namespace APlus.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("APlus.Data.Model.Payment", b =>
@@ -145,7 +145,7 @@ namespace APlus.Migrations
 
                     b.HasIndex("PlanId");
 
-                    b.ToTable("Payments", (string)null);
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("APlus.Data.Model.Plan", b =>
@@ -173,7 +173,7 @@ namespace APlus.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Plans", (string)null);
+                    b.ToTable("Plans");
                 });
 
             modelBuilder.Entity("APlus.Data.Model.PlanService", b =>
@@ -200,7 +200,7 @@ namespace APlus.Migrations
 
                     b.HasIndex("SubscriptionId");
 
-                    b.ToTable("PlanServices", (string)null);
+                    b.ToTable("PlanServices");
                 });
 
             modelBuilder.Entity("APlus.Data.Model.Subscription", b =>
@@ -238,7 +238,7 @@ namespace APlus.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Subscriptions", (string)null);
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("APlus.Data.Model.SubscriptionUser", b =>
@@ -295,7 +295,7 @@ namespace APlus.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("SubscriptionUsers", (string)null);
+                    b.ToTable("SubscriptionUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
