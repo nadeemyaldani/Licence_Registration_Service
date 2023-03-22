@@ -14,10 +14,10 @@ namespace APlus.Data.Model
         [Required]
         public DateTime Created { get; set; }
         [Required]
-        public DateTime Modified { get; set; }
+        public DateTime Modified { get; set; } 
+        [Required]
+        public DateTime ExpiryDate { get; set; }
         public List<PlanService> Services { get; set; } = new List<PlanService>();
-        public int SubscriptionUserId { get; set; }
-        [ForeignKey("UserId")]
         public SubscriptionUser SubscriptionUser { get; set; } = new SubscriptionUser();
         public int PlanId { get; set; }
         [ForeignKey("PlanId")]

@@ -4,6 +4,7 @@ using APlus.Data.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APlus.Migrations
 {
     [DbContext(typeof(EntityDBContext))]
-    partial class EntityDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230321225049_Add-ExpiryDate")]
+    partial class AddExpiryDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,9 +232,17 @@ namespace APlus.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<int>("SubscriptionUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PlanId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Subscriptions");
                 });
@@ -267,6 +278,10 @@ namespace APlus.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -279,14 +294,12 @@ namespace APlus.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("UserProfilePicture")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
-
-                    b.HasIndex("SubscriptionId")
-                        .IsUnique();
 
                     b.ToTable("SubscriptionUsers");
                 });
@@ -462,7 +475,15 @@ namespace APlus.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("APlus.Data.Model.SubscriptionUser", "SubscriptionUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Plan");
+
+                    b.Navigation("SubscriptionUser");
                 });
 
             modelBuilder.Entity("APlus.Data.Model.SubscriptionUser", b =>
@@ -470,12 +491,6 @@ namespace APlus.Migrations
                     b.HasOne("APlus.Data.Model.Country", null)
                         .WithMany("SubscriptionUsers")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("APlus.Data.Model.Subscription", null)
-                        .WithOne("SubscriptionUser")
-                        .HasForeignKey("APlus.Data.Model.SubscriptionUser", "SubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -544,9 +559,6 @@ namespace APlus.Migrations
             modelBuilder.Entity("APlus.Data.Model.Subscription", b =>
                 {
                     b.Navigation("Services");
-
-                    b.Navigation("SubscriptionUser")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

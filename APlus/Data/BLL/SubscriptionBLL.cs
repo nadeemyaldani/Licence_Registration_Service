@@ -1,5 +1,6 @@
 ﻿using APlus.Data.Entity;
 using APlus.Data.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace APlus.Data.BLL
 {
@@ -23,7 +24,7 @@ namespace APlus.Data.BLL
             List<Subscription> subscriptions;
             using (EntityDBContext _dbContext = new())
             {
-                subscriptions = _dbContext.Set<Subscription>().ToList();
+                subscriptions = _dbContext.Set<Subscription>().Include(a => a.SubscriptionUser).Include(a => a.Plan.PlanServices).ToList();
             }
             return Task.FromResult(subscriptions);
         }
@@ -32,7 +33,7 @@ namespace APlus.Data.BLL
             Subscription subscription;
             using (EntityDBContext _dbContext = new())
             {
-                subscription = _dbContext.Set<Subscription>().Where(w => w.Id == id)/*.Include(a => a.User)*/.FirstOrDefault();
+                subscription = _dbContext.Set<Subscription>().Where(w => w.Id == id).Include(a => a.SubscriptionUser).Include(a => a.Plan.PlanServices).FirstOrDefault();
             }
             return Task.FromResult(subscription);
         }

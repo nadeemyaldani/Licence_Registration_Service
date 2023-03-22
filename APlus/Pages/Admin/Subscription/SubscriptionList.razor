@@ -1,0 +1,49 @@
+﻿@page "/subscriptionlist"
+
+@layout AdminPageLayout
+@inherits SubscriptionListBase
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavManager
+
+<Div>
+    <Div>
+        <Button Color="Color.Primary" Clicked="OnCLickCreateSubscription">Add New Subscription</Button>
+    </Div>
+    <Div>
+        <Table Hoverable Bordered Model="@Subscriptions">
+            <TableHeader ThemeContrast="ThemeContrast.Dark">
+                <TableRow>
+                    <TableHeaderCell>Name</TableHeaderCell>
+                    <TableHeaderCell>Organization</TableHeaderCell>
+                    <TableHeaderCell>Plan</TableHeaderCell>
+                    <TableHeaderCell>Expiry Date</TableHeaderCell>
+                    <TableHeaderCell>Status</TableHeaderCell>
+                    <TableHeaderCell>Action</TableHeaderCell>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                @foreach (var subscription in Subscriptions)
+                {
+                    <TableRow id="@subscription.Id">
+                        <TableRowCell>@subscription.SubscriptionUser.DisplayName</TableRowCell>
+                        <TableRowCell>@subscription.SubscriptionUser.Organization</TableRowCell>
+                        <TableRowCell>@subscription.Plan.Name</TableRowCell>
+                        <TableRowCell>@subscription.ExpiryDate.ToString()</TableRowCell>
+                        <TableRowCell>@Enum.GetName(typeof(SubscriptionStatusEnum),@subscription.Status)</TableRowCell>
+                        <TableRowCell></TableRowCell>
+                    </TableRow>
+                }
+            </TableBody>
+        </Table>
+    </Div>
+</Div>
+
+@code {
+    protected void OnCLickCreateSubscription()
+    {
+        NavManager.NavigateTo("/addsubscription");
+    }
+
+    public int MyProperty { get; set; }
+
+}
